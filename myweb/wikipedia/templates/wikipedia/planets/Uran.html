@@ -1,0 +1,109 @@
+{% extends "wikipedia/main.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<!-- 
+    Przykladowy komentarz
+
+    deklaracje meta
+ -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- initial-scale=1 oznacza skalowanie do 100% wielkosci ekranu -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+</style>
+
+<script>
+    
+</script>
+
+<head>
+    <title>System siatkowy Bootstrapa</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.css' %}">
+</head>
+
+<body>
+    <!-- Treść strony -->
+
+    {% block page_head %}
+    <div id="panel" class="panel panel-info">
+        <div class="panel-heading">
+        <div class="container">
+            <div class="row">
+                <div id="title" class="col-lg-12 col-md-12 col-xs-12 text-secondary">
+                    <h3>Uran</h3>
+                </div>
+            </div>
+        </div>
+        </div>
+    {% endblock %}
+    {% block page_body %}
+    <div class="panel-body">
+    <div id="caro" class="container">
+        <div id="galeria" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#galeria" data-slide-to="0" class="active"></li>
+                <li data-target="#galeria" data-slide-to="1"></li>
+                <li data-target="#galeria" data-slide-to="2"></li>
+                <li data-target="#galeria" data-slide-to="3"></li>
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox" >
+                <div class="item active">
+                    <img src="{% static 'wikipedia/Uran/Uran1.jpg' %}" alt="" style="width: 1800px; height: 713px;">
+                    <div class="carousel-caption">
+                    
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{% static 'wikipedia/Uran/Uran2.jpg' %}" alt="" style="width: 1800px; height: 713px;">
+                    <div class="carousel-caption">
+                    
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{% static 'wikipedia/Uran/Uran3.jpg' %}" alt="" style="width: 1800px; height: 713px;">
+                    <div class="carousel-caption">
+                    
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="{% static 'wikipedia/Uran/Uran4.jpg' %}" alt="" style="width: 1800px; height: 713px;">
+                    <div class="carousel-caption">
+                    
+                    </div>
+                </div>
+            </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#galeria" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#galeria" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div id="body_text" class="col-lg-12 col-md-12 col-xs-12 text-secondary">
+                <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h4>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+    {% endblock %}
+
+    
+        
+    <script src="bootstrap-3.4.1-dist/js/bootstrap.js"></script>
+    <script src="bootstrap-3.4.1-dist/js/jquery.js"></script>
+</body>
+</html>

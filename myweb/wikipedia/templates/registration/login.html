@@ -1,0 +1,20 @@
+{% extends "wikipedia/base.html" %}
+{% load static %}
+
+<head>
+{% block title %} Zaloguj się {% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.css' %}">
+</head>
+
+
+<body>
+{% block menu %}
+  <h2 id="title">Zaloguj się</h2><h4 id="title"><a href="admin">Jestem adminem</a></h4>
+  <form id="title" class="form-signin" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button id="title" type="submit" class="btn btn-success">Login</button>
+    <p>Nie masz konta? <a href="/register">Zaresjestruj się.</a></p>
+  </form>
+{% endblock %}
+</body>

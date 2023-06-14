@@ -1,0 +1,114 @@
+{% extends "wikipedia/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<!-- 
+    Przykladowy komentarz
+
+    deklaracje meta
+ -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- initial-scale=1 oznacza skalowanie do 100% wielkosci ekranu -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<head>
+    <title>System siatkowy Bootstrapa</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.css' %}">
+</head>
+
+<body>
+    <!-- Treść strony -->
+    {% block menu %}
+    <nav id="main" class="navbar navbar-default">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="nav navbar-header">
+                        <a href="\"><h2 id="opis">Układ słoneczny</h2></a>
+                    </div>
+                    <ul id="rozpiska" class="nav navbar-nav navbar-left">
+                        
+                        <li id="first">
+                            <a href="/mercury">Merkury</a>
+                        </li>
+                        <li>
+                            <a href="/venus">Wenus</a>
+                        </li>
+                        <li>
+                            <a href="/earth">Ziemia</a>
+                        </li>
+                        <li>
+                            <a href="/mars">Mars</a>
+                        </li>
+                        <li>
+                            <a href="/jupiter">Jowisz</a>
+                        </li>
+                        <li>
+                            <a href="/saturn">Saturn</a>
+                        </li>
+                        <li>
+                            <a href="/uranus">Uran</a>
+                        </li>
+                        <li id="last">
+                            <a href="/neptune">Neptun</a>
+                        </li>
+                        <li id="login">
+                            {% if user.username != '' %}
+                            {{user}}
+                            {% elif user.username == '' %}
+                            Anonim
+                            {% endif %}
+                        </li>
+                        <li id="login">
+                            {% if user.username != ''%}
+                            <button onclick="document.location.href='/logout';" class="text-primary">Wyloguj</button>
+                            {% elif user.username == '' %}
+                            <button onclick="document.location.href='/login';" class="text-primary">Zaloguj</button>
+                            {% endif %}
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            
+            
+        </div>
+
+    </nav>
+    {% endblock %}
+
+    {% block page_head %}
+    <div id="panel" class="panel panel-primary">
+    <div class="panel-heading">
+    <div class="container">
+    
+        <div class="row">
+            <div id="title" class="col-lg-12 col-md-12 col-xs-12 text-secondary">
+                <h3>Forum artykułów użytkowników</h3>
+            </div>
+        </div>
+    </div>
+    </div>
+    {% endblock %}
+    {% block page_body %}
+    <div class="panel-body">
+    <div class="container">
+        {% for element in articles %}
+        <li style="list-style-type: square">
+            Artykuł <a href="/forum/{{element.id}}">{{element.title}}</a> utworzony przez <strong>{{element.author}}</strong>, {{element.created}}
+        </li>
+        {% endfor %}
+        <span><button onclick="document.location.href='/forum/new/{{user}}'">Utwórz nowy artykuł</button></span>
+    </div>
+    </div>
+</div>
+
+    {% endblock %}
+
+    
+        
+</body>
+</html>

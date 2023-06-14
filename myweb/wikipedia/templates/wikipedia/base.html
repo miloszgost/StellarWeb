@@ -1,0 +1,194 @@
+{% load static %}
+
+<!doctype html>
+
+<html lang="pl">
+  
+    <!-- 
+    Przykladowy komentarz
+        
+    deklaracje meta
+    -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- initial-scale=1 oznacza skalowanie do 100% wielkosci ekranu -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    #main {
+        background-color: #E0DEC2;
+        margin-bottom: 0;
+    }
+    
+    #opis {
+        margin-top: 3%;
+        font-family: 'Times New Roman', Times, serif;
+        border-right: 10%;
+        padding-right: 10px;
+    }
+    #rozpiska {
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        font-size: large;
+        padding-left: 5%;
+    }
+    
+    #login {
+        
+        font-family: 'Times New Roman', Times, serif;
+        position: relative;
+        padding-left: 10px;
+        margin-left: 10px;
+        margin-top: 12px;
+    }
+    
+    #first {
+        border-left: 10%;
+        padding-left: 10px;
+        border-color: black;
+        border-left-style: double;
+    }
+    #last {
+        border-right: 10%;
+        padding-right: 10px;
+        border-color: black;
+        border-right-style: double;
+    }
+    
+    #title {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        text-align: center;
+    }
+
+    #body_text {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        border-left-style: groove;
+        text-align: left;
+    }
+
+    #sml-title {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #foot {
+        border-top-style: double;
+    }
+
+    #register {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        text-align: center;
+        display: flexbox;
+    }
+
+    #caro {
+        position: relative;
+        display: block;
+        background-color: rgba(0,0,0,0.5);
+        border-style: double;
+    }
+
+    #panel {
+        border-top: double;
+        background: rgb(215, 215, 215);
+    }
+    #panel.panel-heading {
+        border-bottom: line;
+    }
+
+    #comment_options {
+        position: relative;
+        left: 85%;
+    }
+    
+
+</style>
+
+<script>
+    function delete_event(article_id, comment_id){
+        if (comment_id == undefined) {
+            alert("Usunięto artykuł.\nJeśli to pomyłka, skontaktuj się z Adminem!\nWięcej informacji w sekcji 'Kontakt'.");
+            document.location.href='/forum/' + article_id + '/delete';
+        }
+        else {
+            alert("Usunięto komentarz.\nJeśli to pomyłka, skontaktuj się z Adminem!\nWięcej informacji w sekcji 'Kontakt'.");
+            document.location.href='/forum/'+ article_id + '/' + comment_id;
+        }
+        
+    }
+    function edit_comment(comment_id){
+        if (comment_id == undefined) {
+            
+        }
+    }
+</script>
+
+<head>
+    <title>
+    {% block title %}
+    Wikipedia
+    {% endblock %}
+    </title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.css' %}">
+    
+</head>
+  <body>
+    
+
+    {% block menu %}
+
+    {% endblock %}
+
+
+    {% block page_head %}
+
+    {% endblock %}
+
+
+    {% block page_body %}
+
+    {% endblock %}
+
+    <footer>
+        {% block page_foot %}
+        <nav id="foot" class="navbar navbar-default navbar-expand-lg">
+            <div class="navbar-header">
+                <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#myModal"><h4>Kontakt</h4></button>
+            </div>
+        </nav>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+    
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Kontakt</h3>
+                  </div>
+                  <div class="modal-body">
+                    <h3><strong>Admin główny:</strong></h3>
+                    <ul><h4>Miłosz Gostyński</h4></ul>
+                    <ul><h4>Num. tel.: +48 500 138 439</h4></ul>
+                    <ul><h4>Email: <a href='mailto:miloszgost@wp.pl'>miloszgost@wp.pl</a></h4></ul>
+                    <ul><h5>Prosimy o opisanie w sposób dokładny powód korespondencji <br> oraz problem związany z witryną.</h5></ul>
+                    
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                  </div>
+                </div>
+        
+            </div>
+        </div>
+        {% endblock %}
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  </body>
+  
+</html>
+

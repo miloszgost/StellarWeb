@@ -1,0 +1,164 @@
+{% extends "wikipedia/main.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<!-- 
+    Przykladowy komentarz
+
+    deklaracje meta
+ -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- initial-scale=1 oznacza skalowanie do 100% wielkosci ekranu -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+</style>
+
+<head>
+    {% block title %}
+    {{article.title}}
+    {% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.4.1-dist/css/bootstrap.css' %}">
+</head>
+
+<body>
+    <!-- Treść strony -->
+
+    
+    {% block page_head %}
+    <div id="panel" class="panel panel-primary">
+    <div class="panel-heading">
+    <div class="container">
+        
+        <div class="row">
+            <div id="title" class="col-lg-12 col-md-12 col-xs-12 text-secondary">
+                <h3>{{article.title}}</h3>
+            </div>
+        </div>
+    </div>
+    </div>
+    {% endblock %}
+    
+    
+    {% block page_body %}
+    
+    <div class="container">
+    <div class="panel-body">
+        <div class="row">
+            <div id="body_text" class="col-lg-12 col-md-12 col-xs-12 text-secondary">
+                <h4 id="">{{article.text | safe}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <h5>Utworzone przez: <strong>{{article.author}}</strong>, {{article.created}}</h5>
+        </div>
+        <div class="row">
+            {% if user.username == 'admin' or user == article.author %}
+                <button id='comment_options' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#EditArticleModal">
+                    <span class="glyphicon glyphicon-pencil"></span> Edytuj
+                </button>
+                <button id='comment_options' type="button" class="btn btn-danger btn-sm" onclick="delete_event({{article.id}})">
+                    <span class="glyphicon glyphicon-trash"></span> Usuń
+                </button>
+            {% elif user.username != article.author and user.username != 'admin' %}
+                <button id='comment_options' type="button" class="btn btn-primary btn-sm disabled">
+                    <span class="glyphicon glyphicon-pencil"></span> Edytuj
+                </button>
+                <button id='comment_options' type="button" class="btn btn-danger btn-sm disabled">
+                    <span class="glyphicon glyphicon-trash"></span> Usuń
+                </button>
+                
+            {% endif %}
+        <hr>
+        <div class="row">
+            <span><button id='' type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#AddCommentModal">Dodaj komentarz</button></span>
+            <h4><strong>Komentarze:</strong></h4>
+            <table>
+            {% for element in comments %}
+            <div class="well">
+                <li style="list-style-type: square">
+                    
+                    {{element.created}}, <strong>{{element.name}}</strong> pisze:
+                    <ul><h5>{{element.body}}</h5></ul>
+                    <ul>
+                        {% if user.username != element.name and user.username != 'admin' %}
+                        <button id='comment_options' type="button" class="btn btn-default btn-sm disabled">
+                            <span class="glyphicon glyphicon-pencil"></span> Edytuj
+                        </button>
+                        <button id='comment_options' type="button" class="btn btn-warning btn-sm disabled">
+                            <span class="glyphicon glyphicon-trash"></span> Usuń
+                        </button>
+                        {% elif user.username == 'admin' or user.username == element.name %}
+                        <button id='comment_options' type="button" class="btn btn-default btn-sm " onclick="edit_comment({{element.id}})">
+                            <span class="glyphicon glyphicon-pencil"></span> Edytuj
+                        </button>
+                        <button id='comment_options' type="button" class="btn btn-warning btn-sm" onclick="delete_event({{article.id}}, {{element.id}})">
+                            <span class="glyphicon glyphicon-trash"></span> Usuń
+                        </button>
+                        {% endif %}
+                    </ul>
+                    
+                </li>
+            </div>
+            </table>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+    </div>
+    <hr>
+    <!-- Modale -->
+    
+    <div class="modal fade" id="EditArticleModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Edytor Artykułu</h3>
+              </div>
+              <form action="/forum/{{article.id}}" method="post">
+              <div class="modal-body">
+                    {% csrf_token %}
+                    {{ article_form.as_p }}
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-default" value="submit">Wyślij</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+              </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="AddCommentModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Dodaj komentarz</h3>
+              </div>
+              <form action="/forum/{{article.id}}/new/{{user}}" method="post">
+              <div class="modal-body">
+                    {% csrf_token %}
+                    {{ comment_form.as_p }}
+                    
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-default" value="submit">Wyślij</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+              </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    {% endblock %}
+    
+        
+</body>
+</html>
